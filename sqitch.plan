@@ -1,0 +1,9 @@
+%syntax-version=1.0.0
+%project=crm-for-devs
+
+0001_contacts 2024-12-21T19:08:34Z Justin McIntyre <justinmcintyre42@gmail.com> # just the contact entity
+0002_contact_method [0001_contacts] 2024-12-21T19:17:45Z Justin McIntyre <justinmcintyre42@gmail.com> # Way the contact can be contacted, easily configurable
+0003_pipelines [0001_contacts] 2024-12-23T02:29:02Z Justin McIntyre <justinmcintyre42@gmail.com> # These are journeys we are pushing contacts throught, generally they will point to a product or something
+0004_contact_sources [0001_contacts] 2024-12-23T03:10:30Z Justin McIntyre <justinmcintyre42@gmail.com> # Track the source of new contacts
+0005_messages.sql [0001_contacts 0002_contact_method] 2024-12-23T03:22:38Z Justin McIntyre <justinmcintyre42@gmail.com> # messages sent and received
+0006_follow_up_reminders [0001_contacts 0002_contact_method] 2024-12-23T03:30:57Z Justin McIntyre <justinmcintyre42@gmail.com> # Follow up reminders, they remind us to follow up with people
