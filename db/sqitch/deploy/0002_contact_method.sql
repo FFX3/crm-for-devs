@@ -12,6 +12,7 @@ BEGIN;
 
     create table contact_methods (
       id bigint primary key generated always as identity,
+      name text,
       contact_method_meta_id bigint not null references contact_method_metas (id),
       contact_id bigint not null references contacts (id),
       fields jsonb
@@ -32,7 +33,10 @@ BEGIN;
       }
     }
     *************/
-    CREATE FUNCTION validate_fields() RETURNS trigger AS $$
+    CREATE FUNCTION validate_fields() 
+    RETURNS trigger 
+    set search_path to crm
+    AS $$
     DECLARE
 
     fields jsonb;
@@ -84,7 +88,10 @@ BEGIN;
     update on contact_methods for each row
     execute function validate_fields ();
 
-    CREATE FUNCTION validate_required_fields() RETURNS trigger AS $$
+    CREATE FUNCTION validate_required_fields() 
+    RETURNS trigger 
+    set search_path to crm
+    AS $$
     DECLARE
         key text;
         field jsonb;
@@ -147,7 +154,9 @@ BEGIN;
     CREATE INDEX idx_contact_method_fields_value ON contact_method_field_values_normalized(value);
 
     CREATE FUNCTION update_contact_method_field_values_normalized() 
-    RETURNS trigger AS $$
+    RETURNS trigger 
+    set search_path to crm
+    AS $$
     BEGIN
         INSERT INTO crm.contact_method_field_values_normalized (
             contact_id,

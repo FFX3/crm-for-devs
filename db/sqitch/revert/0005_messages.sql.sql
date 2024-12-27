@@ -4,8 +4,17 @@ BEGIN;
 
     set search_path to crm;
 
-    drop view outbound_messages_with_no_response_per_contact_method;
-    drop view outbound_messages_with_no_response;
+    drop trigger prevent_inserts_trigger on type_no_response_count_per_contact;
+    drop trigger prevent_inserts_trigger on type_no_response_count_per_contact_method;
+
+    drop function prevent_inserts;
+
+    drop function no_response_count_per_contact;
+    drop table type_no_response_count_per_contact;
+
+    drop function no_response_count_per_contact_method;
+    drop table type_no_response_count_per_contact_method;
+
     drop table messages;
 
 COMMIT;

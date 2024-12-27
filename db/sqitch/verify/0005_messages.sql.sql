@@ -13,14 +13,4 @@ BEGIN;
     from messages
     where false;
 
-    select 
-        contact_id,
-        "count"
-    from outbound_messages_with_no_response;
-
-    select 
-        contact_method_id,
-        "count"
-    from outbound_messages_with_no_response_per_contact_method;
-
 ROLLBACK;
