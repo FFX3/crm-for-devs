@@ -14,6 +14,14 @@ BEGIN;
         send_time timestamptz not null
     );
 
+    grant all on messages to authenticated;
+    alter table messages enable row level security;
+    create policy "Open to authenticated" on messages
+    for all
+    to authenticated
+    using(true)
+    with check(true);
+
     CREATE OR REPLACE FUNCTION prevent_inserts()
     RETURNS TRIGGER 
     set search_path from current

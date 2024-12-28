@@ -14,4 +14,12 @@ BEGIN;
         notes text
     );
 
+    grant all on follow_up_reminders to authenticated;
+    alter table follow_up_reminders enable row level security;
+    create policy "Open to authenticated" on follow_up_reminders
+    for all
+    to authenticated
+    using(true)
+    with check(true);
+
 COMMIT;

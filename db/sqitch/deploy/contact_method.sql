@@ -10,6 +10,14 @@ BEGIN;
       required_fields jsonb not null
     );
 
+    grant all on contact_method_metas to authenticated;
+    alter table contact_method_metas enable row level security;
+    create policy "Open to authenticated" on contact_method_metas
+    for all
+    to authenticated
+    using(true)
+    with check(true);
+
     create table contact_methods (
       id bigint primary key generated always as identity,
       name text,
@@ -17,6 +25,14 @@ BEGIN;
       contact_id bigint not null references contacts (id),
       fields jsonb
     );
+
+    grant all on contact_methods to authenticated;
+    alter table contact_methods enable row level security;
+    create policy "Open to authenticated" on contact_methods
+    for all
+    to authenticated
+    using(true)
+    with check(true);
 
     alter table contacts add column primary_contact_method_id bigint references contact_methods (id);
 
@@ -150,6 +166,14 @@ BEGIN;
         value text,
         PRIMARY KEY (contact_id, contact_method_id, key)
     );
+
+    grant all on contact_method_field_values_normalized to authenticated;
+    alter table contact_method_field_values_normalized enable row level security;
+    create policy "Open to authenticated" on contact_method_field_values_normalized
+    for all
+    to authenticated
+    using(true)
+    with check(true);
 
     CREATE INDEX idx_contact_method_fields_value ON contact_method_field_values_normalized(value);
 

@@ -7,6 +7,14 @@ BEGIN;
         value text
     );
 
+    grant all on crm.defaults to authenticated;
+    alter table crm.defaults enable row level security;
+    create policy "Open to authenticated" on crm.defaults
+    for all
+    to authenticated
+    using(true)
+    with check(true);
+
     create or replace view contacts
     with (security_invoker)
     as
